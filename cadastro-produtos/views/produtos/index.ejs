@@ -9,19 +9,20 @@
   </head>
   <body>
     <h1>Produtos</h1>
-    <nav><a href="/">Início</a> | <a href="/produtos/novo">Cadastrar produto</a></nav>
+    <nav><a href="/">Início</a> | <a href="/produtos/novo">Cadastrar produto</a> | <a href="/categorias">Categorias</a></nav>
     <% if (!produtos.length) { %>
       <p>Nenhum produto cadastrado.</p>
     <% } else { %>
       <table>
         <caption>Produtos cadastrados</caption>
-        <thead><tr><th scope="col">Nome</th><th scope="col">Preço</th><th scope="col">Quantidade</th><th scope="col">Ações</th></tr></thead>
+        <thead><tr><th scope="col">Nome</th><th scope="col">Preço</th><th scope="col">Quantidade</th><th scope="col">Categoria</th><th scope="col">Ações</th></tr></thead>
         <tbody>
           <% for (const produto of produtos) { %>
             <tr>
               <td><%= produto.nome %></td>
               <td><%= Number(produto.preco).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) %></td>
               <td><%= produto.quantidade %></td>
+              <td><%= produto.Categoria ? produto.Categoria.nome : 'Sem categoria' %></td>
               <td>
                 <a href="/produtos/<%= produto.id %>/editar">Editar <%= produto.nome %></a>
                 <form method="post" action="/produtos/<%= produto.id %>/deletar">

@@ -11,16 +11,17 @@ test('CRUD de produtos valida dados e trata falhas', async () => {
   const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'mvc-crud-'));
   process.env.DATABASE_STORAGE = path.join(directory, 'test.sqlite');
   const app = require('../app');
-  const { sequelize, Produto } = require('../models');
+  const { sequelize, Produto, Categoria } = require('../models');
   let fechado = false;
   await sequelize.sync();
+  const categoria = await Categoria.create({ nome: 'Teste CRUD' });
   const server = app.listen(0, '127.0.0.1');
   try {
     await new Promise(resolve => server.once('listening', resolve));
     const base = `http://127.0.0.1:${server.address().port}/produtos`;
     // Envia formulários como o navegador, sem seguir redirects para conferir o resultado da operação.
     const enviar = (url, dados) => fetch(url, {
-      method: 'POST', redirect: 'manual', body: new URLSearchParams(dados)
+      method: 'POST', redirect: 'manual', body: new URLSearchParams({ categoriaId: String(categoria.id), ...dados })
     });
     assert.match(await (await fetch(base)).text(), /Nenhum produto cadastrado/);
     assert.equal((await fetch(`${base}/novo`)).status, 200);
@@ -66,11 +67,12 @@ test('CRUD de produtos valida dados e trata falhas', async () => {
     fechado = true;
     const reaberto = new Sequelize({ dialect: 'sqlite', storage: process.env.DATABASE_STORAGE, logging: false });
     try {
-      const [rows] = await reaberto.query('SELECT nome, preco, quantidade FROM Produtos ORDER BY id');
+      const [rows] = await reaberto.query('SELECT nome, preco, quantidade, categoriaId FROM Produtos ORDER BY id');
       assert.equal(rows.length, 4);
       assert.equal(rows[0].nome, 'Produto atualizado');
       assert.equal(Number(rows[0].preco), 30.25);
       assert.equal(rows[0].quantidade, 7);
+      assert.equal(rows[0].categoriaId, categoria.id);
     } finally {
       await reaberto.close();
     }

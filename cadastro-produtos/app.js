@@ -8,6 +8,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var produtosRouter = require('./routes/produtos');
+var categoriasRouter = require('./routes/categorias');
 
 var app = express();
 
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/produtos', produtosRouter);
+app.use('/categorias', categoriasRouter);
 
 // Encaminha URLs sem rota para o tratamento centralizado de erros.
 app.use(function(req, res, next) {

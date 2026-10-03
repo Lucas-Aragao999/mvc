@@ -55,16 +55,16 @@ Construir uma aplicação web com **Node.js, Express, EJS, Sequelize e SQLite**,
 
 **Pré-requisito:** CRUD funcionando.
 
-- [ ] Consultar a documentação do Sequelize sobre associações e chaves estrangeiras.
-- [ ] Criar o Model `Categoria`, com `id` e `nome`.
-- [ ] Definir o relacionamento: uma categoria possui vários produtos; cada produto pertence a uma categoria.
-- [ ] Criar a chave estrangeira `categoriaId` em Produto.
-- [ ] Planejar a atualização do banco existente e a associação dos produtos já cadastrados, preservando os dados.
-- [ ] Criar uma página e rotas para cadastrar e listar categorias.
-- [ ] Carregar as categorias nos formulários de cadastro e edição de produtos.
-- [ ] Permitir selecionar e alterar a categoria do produto.
-- [ ] Validar se a categoria informada existe.
-- [ ] Buscar o relacionamento e mostrar o nome da categoria na listagem de produtos.
+- [x] Consultar a documentação do Sequelize sobre associações e chaves estrangeiras.
+- [x] Criar o Model `Categoria`, com `id` e `nome`.
+- [x] Definir o relacionamento: uma categoria possui vários produtos; cada produto pertence a uma categoria.
+- [x] Criar a chave estrangeira `categoriaId` em Produto.
+- [x] Planejar a atualização do banco existente e a associação dos produtos já cadastrados, preservando os dados (categoria “Sem categoria” aprovada pelo programador).
+- [x] Criar uma página e rotas para cadastrar e listar categorias.
+- [x] Carregar as categorias nos formulários de cadastro e edição de produtos.
+- [x] Permitir selecionar e alterar a categoria do produto.
+- [x] Validar se a categoria informada existe.
+- [x] Buscar o relacionamento e mostrar o nome da categoria na listagem de produtos.
 
 **Concluído quando:** categorias puderem ser cadastradas, produtos estiverem associados a elas e a listagem mostrar essa associação persistida no banco.
 

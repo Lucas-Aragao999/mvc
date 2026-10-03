@@ -8,6 +8,7 @@ var app = require('../app');
 var debug = require('debug')('cadastro-produtos:server');
 var http = require('http');
 var sequelize = require('../models').sequelize;
+var inicializarBanco = require('../models').inicializarBanco;
 
 /**
  * Obtém a porta configurada para permitir executar o servidor localmente.
@@ -32,8 +33,7 @@ server.on('listening', onListening);
 // Cria tabelas ausentes antes da escuta, preservando dados e encerrando em caso de falha.
 async function iniciar() {
   try {
-    await sequelize.authenticate();
-    await sequelize.sync();
+    await inicializarBanco();
     server.listen(port);
   } catch (error) {
     console.error('Falha ao inicializar o banco:', error.message);

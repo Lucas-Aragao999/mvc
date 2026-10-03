@@ -1,7 +1,7 @@
 // Implementa o CRUD MVC de produtos com validação dos formulários e acesso pelo Sequelize.
 const express = require('express');
 const createError = require('http-errors');
-const { Produto } = require('../models');
+const { Produto, Categoria } = require('../models');
 const router = express.Router();
 
 // Encaminha falhas assíncronas ao middleware de erros para toda requisição receber uma resposta.
@@ -16,11 +16,12 @@ function executar(acao) {
 }
 
 // Seleciona apenas campos permitidos e valida números antes de qualquer gravação no banco.
-function validar(body) {
+async function validar(body) {
   const produto = {
     nome: typeof body.nome === 'string' ? body.nome.trim() : '',
     preco: typeof body.preco === 'string' ? body.preco.trim() : '',
-    quantidade: typeof body.quantidade === 'string' ? body.quantidade.trim() : ''
+    quantidade: typeof body.quantidade === 'string' ? body.quantidade.trim() : '',
+    categoriaId: typeof body.categoriaId === 'string' ? body.categoriaId : ''
   };
   const erros = [];
   if (!produto.nome) erros.push('Informe o nome do produto.');
@@ -29,6 +30,10 @@ function validar(body) {
   }
   if (!/^\d+$/.test(produto.quantidade) || !Number.isSafeInteger(Number(produto.quantidade))) {
     erros.push('Informe uma quantidade inteira não negativa.');
+  }
+  if (!/^[1-9]\d*$/.test(produto.categoriaId) || !Number.isSafeInteger(Number(produto.categoriaId)) ||
+      !await Categoria.findByPk(produto.categoriaId)) {
+    erros.push('Selecione uma categoria existente.');
   }
   return { produto, erros };
 }
@@ -45,19 +50,23 @@ async function buscar(id) {
 
 // Lista os produtos em ordem de cadastro para permitir acessar edição e exclusão.
 router.get('/', executar(async function(req, res) {
-  const produtos = await Produto.findAll({ order: [['id', 'ASC']] });
+  const produtos = await Produto.findAll({ include: 'Categoria', order: [['id', 'ASC']] });
   res.render('produtos/index', { produtos });
 }));
 
 // Abre o formulário com quantidade zero para iniciar um cadastro.
-router.get('/novo', function(req, res) {
-  res.render('produtos/novo', { produto: { nome: '', preco: '', quantidade: 0 }, erros: [] });
-});
+router.get('/novo', executar(async function(req, res) {
+  const categorias = await Categoria.findAll({ order: [['nome', 'ASC']] });
+  res.render('produtos/novo', { produto: { nome: '', preco: '', quantidade: 0, categoriaId: '' }, categorias, erros: [] });
+}));
 
 // Salva somente dados válidos e redireciona para evitar repetição do envio do formulário.
 router.post('/', executar(async function(req, res) {
-  const { produto, erros } = validar(req.body);
-  if (erros.length) return res.status(422).render('produtos/novo', { produto, erros });
+  const { produto, erros } = await validar(req.body);
+  if (erros.length) {
+    const categorias = await Categoria.findAll({ order: [['nome', 'ASC']] });
+    return res.status(422).render('produtos/novo', { produto, categorias, erros });
+  }
   await Produto.create(produto);
   res.redirect(303, '/produtos');
 }));
@@ -65,15 +74,17 @@ router.post('/', executar(async function(req, res) {
 // Carrega o produto existente no formulário para permitir sua edição.
 router.get('/:id/editar', executar(async function(req, res) {
   const produto = await buscar(req.params.id);
-  res.render('produtos/editar', { produto, erros: [] });
+  const categorias = await Categoria.findAll({ order: [['nome', 'ASC']] });
+  res.render('produtos/editar', { produto, categorias, erros: [] });
 }));
 
 // Atualiza os campos permitidos e preserva os valores enviados quando a validação falha.
 router.post('/:id', executar(async function(req, res) {
   const existente = await buscar(req.params.id);
-  const { produto, erros } = validar(req.body);
+  const { produto, erros } = await validar(req.body);
   if (erros.length) {
-    return res.status(422).render('produtos/editar', { produto: { ...produto, id: existente.id }, erros });
+    const categorias = await Categoria.findAll({ order: [['nome', 'ASC']] });
+    return res.status(422).render('produtos/editar', { produto: { ...produto, id: existente.id }, categorias, erros });
   }
   await existente.update(produto);
   res.redirect(303, '/produtos');
