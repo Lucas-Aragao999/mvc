@@ -7,6 +7,8 @@ Criar uma interface mais bonita para gerenciar produtos e categorias, usando Rea
 
 Pedido autorizado nesta sessão: elaborar o plano. Implementação, instalação de dependências e alterações nas rotas ficam para uma próxima execução.
 
+Atualização: o programador autorizou a execução posteriormente. Implementado em 03/10/2026; evidências em `DEV/docs/problems/Validacao_frontend_03_10_2026.md`.
+
 Hoje o Express retorna HTML EJS, e não uma API JSON. O banco, o CRUD, categorias, filtros e pesquisa já funcionam, com nove testes aprovados. O roadmap original exige EJS; a proposta é manter a versão acadêmica e adicionar o painel em `/painel/`, usando o mesmo Express, models e SQLite. Isso amplia o escopo visual a pedido do programador e não muda as funcionalidades do cadastro.
 
 ## Direção visual

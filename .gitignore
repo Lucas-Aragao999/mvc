@@ -11,3 +11,5 @@ tmp/
 *.sqlite-journal
 *.sqlite-shm
 *.sqlite-wal
+# Exclui o bundle gerado pelo Vite.
+dist/

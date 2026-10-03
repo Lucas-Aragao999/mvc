@@ -21,6 +21,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/api', require('./routes/api'));
+app.use('/painel', express.static(path.join(__dirname, 'frontend', 'dist')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -34,6 +36,11 @@ app.use(function(req, res, next) {
 
 // Renderiza os erros para encerrar a requisição e restringe detalhes ao desenvolvimento.
 app.use(function(err, req, res, next) {
+  // Responde falhas da API em JSON e limita mensagens internas e detalhes de diagnóstico.
+  if (req.path === '/api' || req.path.startsWith('/api/')) {
+    const status = err.status || 500;
+    return res.status(status).json({ mensagem: status >= 500 ? 'Não foi possível concluir a operação. Tente novamente.' : status === 400 ? 'JSON inválido.' : err.message });
+  }
   // Expõe o diagnóstico completo somente no ambiente de desenvolvimento.
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

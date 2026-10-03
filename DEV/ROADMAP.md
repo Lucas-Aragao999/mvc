@@ -143,3 +143,16 @@ Construir uma aplicação web com **Node.js, Express, EJS, Sequelize e SQLite**,
 ## Limites do escopo
 
 Priorizar o CRUD e os dois desafios obrigatórios. Pesquisa por nome é extra. Login, deploy, API separada, frontend em React e CRUD completo de categorias não são pedidos no enunciado.
+
+## Extensão solicitada — painel React
+
+Após concluir os requisitos funcionais, o programador solicitou painel React/Vite com tema escuro e roxo. A versão EJS permanece disponível para o enunciado acadêmico.
+
+- [x] Adicionar API JSON ao mesmo Express com validação compartilhada.
+- [x] Criar painel React/Vite em `/painel/` com produtos, categorias, filtros e pesquisa.
+- [x] Implementar formulários, confirmação de exclusão e estados de feedback.
+- [x] Usar CSS próprio, fontes locais e um SpotlightCard React Bits com atribuição.
+- [x] Validar testes backend/frontend, lint, build, instalação limpa e respostas HTTP.
+- [ ] Conferir visualmente desktop/mobile no navegador (indisponível nesta sessão).
+
+Plano e evidências: `docs/plans/Plano_03_10_2026_frontend_roxo.md` e `docs/problems/Validacao_frontend_03_10_2026.md`.

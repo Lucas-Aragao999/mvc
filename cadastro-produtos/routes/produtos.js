@@ -4,6 +4,7 @@ const createError = require('http-errors');
 const { Op } = require('sequelize');
 const { Produto, Categoria } = require('../models');
 const router = express.Router();
+const { validar, buscar } = require('../services/produtos');
 
 // Encaminha falhas assíncronas ao middleware de erros para toda requisição receber uma resposta.
 function executar(acao) {
@@ -14,39 +15,6 @@ function executar(acao) {
       next(error.status === 404 ? error : createError(500, 'Não foi possível acessar os produtos. Tente novamente.'));
     }
   };
-}
-
-// Seleciona apenas campos permitidos e valida números antes de qualquer gravação no banco.
-async function validar(body) {
-  const produto = {
-    nome: typeof body.nome === 'string' ? body.nome.trim() : '',
-    preco: typeof body.preco === 'string' ? body.preco.trim() : '',
-    quantidade: typeof body.quantidade === 'string' ? body.quantidade.trim() : '',
-    categoriaId: typeof body.categoriaId === 'string' ? body.categoriaId : ''
-  };
-  const erros = [];
-  if (!produto.nome) erros.push('Informe o nome do produto.');
-  if (!/^\d+(\.\d{1,2})?$/.test(produto.preco) || !Number.isFinite(Number(produto.preco))) {
-    erros.push('Informe um preço não negativo com até duas casas decimais.');
-  }
-  if (!/^\d+$/.test(produto.quantidade) || !Number.isSafeInteger(Number(produto.quantidade))) {
-    erros.push('Informe uma quantidade inteira não negativa.');
-  }
-  if (!/^[1-9]\d*$/.test(produto.categoriaId) || !Number.isSafeInteger(Number(produto.categoriaId)) ||
-      !await Categoria.findByPk(produto.categoriaId)) {
-    erros.push('Selecione uma categoria existente.');
-  }
-  return { produto, erros };
-}
-
-// Busca um ID inteiro válido e responde 404 quando o produto não está disponível.
-async function buscar(id) {
-  if (!/^[1-9]\d*$/.test(id) || !Number.isSafeInteger(Number(id))) {
-    throw createError(404, 'Produto não encontrado.');
-  }
-  const produto = await Produto.findByPk(id);
-  if (!produto) throw createError(404, 'Produto não encontrado.');
-  return produto;
 }
 
 // Lista os produtos em ordem de cadastro para permitir acessar edição e exclusão.

@@ -3,21 +3,29 @@
 
 Aplicação MVC com Express, EJS, Sequelize e SQLite. Inclui CRUD de produtos, cadastro/listagem de categorias, associação de produtos às categorias, filtro por categoria e pesquisa por nome.
 
+O painel React/Vite usa tema escuro e roxo, fontes incluídas no build, CSS próprio e um SpotlightCard adaptado do React Bits. A versão EJS foi preservada para o requisito acadêmico.
+
 ## Execução
 
 Requisito: Node.js 24 (versão usada na validação).
 
 ```sh
 npm install
+npm --prefix frontend install
+npm run build
 npm start
 ```
 
 Abra http://localhost:3000. No PowerShell com scripts bloqueados, use `npm.cmd` no lugar de `npm`.
 
+Painel: http://localhost:3000/painel/. Versão EJS: http://localhost:3000/produtos. Sem o build do frontend, o painel ainda não estará disponível. `frontend/dist` é gerado localmente e não é versionado.
+
 ## Validação
 
 ```sh
 npm run test:unit
+npm run test:frontend
+npm run lint:frontend
 ```
 
 Os testes verificam renderização EJS, resposta 404, CRUD por HTTP, persistência após reabrir SQLite, validação de dados, campos extras ignorados, falhas de banco, categorias e migração idempotente de bancos antigos.
@@ -87,3 +95,23 @@ Formulários exigem nome, preço não negativo com até duas casas decimais, qua
 ## Instalação reproduzível
 
 Em uma cópia limpa, `npm ci` instala as versões do `package-lock.json`. Depois, execute `npm run test:unit` e `npm start`. Não copie node_modules nem o banco de outro ambiente. Para a entrega acadêmica, o responsável ainda deve informar seu nome e RM.
+
+Para incluir o painel na cópia limpa, execute também `npm --prefix frontend ci` e `npm run build` antes de `npm start`.
+
+## Desenvolvimento React e API
+
+Execute `npm start` no primeiro terminal e `npm run dev:frontend` no segundo, ambos nesta pasta. Abra http://localhost:5173/painel/. O proxy do Vite usa Express em 3000; para outra porta, ajuste o destino em `frontend/vite.config.js`. A navegação do painel usa hash (`#produtos` e `#categorias`).
+
+| Método | Rota JSON | Ação |
+| --- | --- | --- |
+| GET | `/api/produtos?busca=mouse&categoriaId=1` | Consulta e filtros |
+| GET | `/api/produtos/:id` | Produto existente |
+| POST | `/api/produtos` | Cadastro |
+| PATCH | `/api/produtos/:id` | Atualização parcial |
+| DELETE | `/api/produtos/:id` | Exclusão |
+| GET | `/api/categorias` | Lista de categorias |
+| POST | `/api/categorias` | Cadastro de categoria |
+
+A API retorna `{ dados }` em consultas/gravações, HTTP 201 na criação e 204 sem corpo na exclusão. Erros retornam `{ mensagem, erros? }`, com 422 para campos inválidos, 404 para registros ausentes e 500 com mensagem genérica para falha interna. Produto aceita nome, preco, quantidade e categoriaId; a validação é compartilhada com EJS.
+
+A atribuição e licença do React Bits estão em `frontend/THIRD_PARTY_NOTICES.md`. As fontes locais são distribuídas pelos pacotes Fontsource com suas respectivas licenças.
