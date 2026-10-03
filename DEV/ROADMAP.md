@@ -98,16 +98,16 @@ Construir uma aplicação web com **Node.js, Express, EJS, Sequelize e SQLite**,
 
 ## 7. Validar o sistema
 
-- [ ] Cadastrar pelo menos cinco produtos.
-- [ ] Confirmar listagem, edição e exclusão.
-- [ ] Reiniciar o servidor e conferir a persistência dos dados.
-- [ ] Abrir `database.sqlite` em uma ferramenta de visualização SQLite e conferir registros e relacionamentos.
-- [ ] Cadastrar categorias diferentes e associar produtos a elas.
-- [ ] Alterar a categoria de um produto e conferir o resultado nos filtros.
-- [ ] Testar categoria com produtos, categoria vazia e ID inexistente.
-- [ ] Testar formulários com dados inválidos e confirmar que não gravam registros incorretos.
-- [ ] Conferir navegação, mensagens e rótulos dos formulários.
-- [ ] Se houver pesquisa, testar correspondência parcial, ausência de resultados e termo vazio.
+- [x] Cadastrar pelo menos cinco produtos.
+- [x] Confirmar listagem, edição e exclusão.
+- [x] Reiniciar o servidor e conferir a persistência dos dados.
+- [x] Conferir registros e relacionamentos de `database.sqlite` por consultas SQLite diretas (visualizador gráfico indisponível; evidências em `docs/problems/Validacao_03_10_2026.md`).
+- [x] Cadastrar categorias diferentes e associar produtos a elas.
+- [x] Alterar a categoria de um produto e conferir o resultado nos filtros.
+- [x] Testar categoria com produtos, categoria vazia e ID inexistente.
+- [x] Testar formulários com dados inválidos e confirmar que não gravam registros incorretos.
+- [x] Conferir navegação, mensagens e rótulos dos formulários (HTML renderizado e testes HTTP; revisão visual pendente por indisponibilidade de navegador).
+- [x] Se houver pesquisa, testar correspondência parcial, ausência de resultados e termo vazio.
 
 **Concluído quando:** todos os requisitos obrigatórios funcionarem sem erros e os dados permanecerem consistentes.
 
