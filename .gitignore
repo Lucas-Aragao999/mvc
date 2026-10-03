@@ -1,0 +1,8 @@
+# Exclui dependências e arquivos temporários locais.
+node_modules/
+npm-debug.log*
+*.log
+.env
+.env.*
+!.env.example
+tmp/

@@ -1,0 +1,9 @@
+# Este arquivo oferece uma configuração de projeto segura e previsível para o Codex.
+#:schema https://developers.openai.com/codex/config-schema.json
+
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+web_search = "cached"
+
+[sandbox_workspace_write]
+network_access = false
