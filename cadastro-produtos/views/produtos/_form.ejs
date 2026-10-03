@@ -1,0 +1,14 @@
+<%# Compartilha campos acessíveis e mensagens de validação entre cadastro e edição. %>
+<% if (erros.length) { %>
+  <div role="alert">
+    <p>Confira os dados informados:</p>
+    <ul><% for (const erro of erros) { %><li><%= erro %></li><% } %></ul>
+  </div>
+<% } %>
+<form method="post" action="<%= acao %>">
+  <p><label for="nome">Nome</label><br /><input id="nome" name="nome" type="text" value="<%= produto.nome %>" required /></p>
+  <p><label for="preco">Preço (R$)</label><br /><input id="preco" name="preco" type="number" min="0" step="0.01" value="<%= produto.preco %>" required /></p>
+  <p><label for="quantidade">Quantidade</label><br /><input id="quantidade" name="quantidade" type="number" min="0" step="1" value="<%= produto.quantidade %>" required /></p>
+  <button type="submit"><%= botao %></button>
+  <a href="/produtos">Cancelar e voltar</a>
+</form>

@@ -1,0 +1,14 @@
+<%# Renderiza o cadastro de produto e reapresenta os dados quando houver erros. %>
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cadastrar produto</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <h1>Cadastrar produto</h1>
+    <%- include('_form', { produto, erros, acao: '/produtos', botao: 'Cadastrar' }) %>
+  </body>
+</html>

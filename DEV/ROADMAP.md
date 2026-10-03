@@ -28,13 +28,13 @@ Construir uma aplicação web com **Node.js, Express, EJS, Sequelize e SQLite**,
 
 ## 3. Implementar o CRUD de produtos
 
-- [ ] Criar `routes/produtos.js` e registrá-lo em `app.js` em `/produtos`.
-- [ ] Conferir o middleware `express.urlencoded` antes das rotas de formulário.
-- [ ] Implementar listagem, formulário de cadastro, criação, formulário de edição, atualização e exclusão.
-- [ ] Criar `views/produtos/index.ejs`, `novo.ejs` e `editar.ejs`.
-- [ ] Usar labels associados aos campos e entradas numéricas adequadas para preço e quantidade.
-- [ ] Validar no servidor nome preenchido, preço válido e quantidade inteira não negativa; aceitar somente os campos esperados.
-- [ ] Tratar produto inexistente e erros de banco sem deixar a requisição pendente.
+- [x] Criar `routes/produtos.js` e registrá-lo em `app.js` em `/produtos`.
+- [x] Conferir o middleware `express.urlencoded` antes das rotas de formulário.
+- [x] Implementar listagem, formulário de cadastro, criação, formulário de edição, atualização e exclusão.
+- [x] Criar `views/produtos/index.ejs`, `novo.ejs` e `editar.ejs`.
+- [x] Usar labels associados aos campos e entradas numéricas adequadas para preço e quantidade.
+- [x] Validar no servidor nome preenchido, preço válido e quantidade inteira não negativa; aceitar somente os campos esperados.
+- [x] Tratar produto inexistente e erros de banco sem deixar a requisição pendente.
 
 ### Rotas do CRUD
 

@@ -1,0 +1,37 @@
+<%# Lista os produtos persistidos e oferece acesso às operações de cadastro, edição e exclusão. %>
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Produtos — Cadastro de Produtos</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <h1>Produtos</h1>
+    <nav><a href="/">Início</a> | <a href="/produtos/novo">Cadastrar produto</a></nav>
+    <% if (!produtos.length) { %>
+      <p>Nenhum produto cadastrado.</p>
+    <% } else { %>
+      <table>
+        <caption>Produtos cadastrados</caption>
+        <thead><tr><th scope="col">Nome</th><th scope="col">Preço</th><th scope="col">Quantidade</th><th scope="col">Ações</th></tr></thead>
+        <tbody>
+          <% for (const produto of produtos) { %>
+            <tr>
+              <td><%= produto.nome %></td>
+              <td><%= Number(produto.preco).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) %></td>
+              <td><%= produto.quantidade %></td>
+              <td>
+                <a href="/produtos/<%= produto.id %>/editar">Editar <%= produto.nome %></a>
+                <form method="post" action="/produtos/<%= produto.id %>/deletar">
+                  <button type="submit">Excluir <%= produto.nome %></button>
+                </form>
+              </td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    <% } %>
+  </body>
+</html>

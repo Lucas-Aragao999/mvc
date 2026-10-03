@@ -1,7 +1,7 @@
 <!-- Explica a execução da aplicação durante a preparação do projeto. -->
 # Cadastro de Produtos — MVC
 
-Aplicação Express com EJS, Sequelize e SQLite. O model Produto e a persistência estão configurados; o CRUD será implementado nas próximas etapas de `../DEV/ROADMAP.md`.
+Aplicação MVC com Express, EJS, Sequelize e SQLite. Inclui cadastro, listagem, edição e exclusão de produtos. Categorias e filtro por categoria são as próximas etapas de `../DEV/ROADMAP.md`.
 
 ## Execução
 
@@ -20,12 +20,25 @@ Abra http://localhost:3000. No PowerShell com scripts bloqueados, use `npm.cmd` 
 npm run test:unit
 ```
 
-Os testes verificam renderização EJS, resposta 404, persistência real em SQLite, validação do Produto e falha de inicialização do banco.
+Os testes verificam renderização EJS, resposta 404, CRUD por HTTP, persistência após reabrir SQLite, validação de dados, campos extras ignorados e falhas de banco.
 
 ## Banco de dados
 
 Ao iniciar, o servidor conecta ao SQLite e cria tabelas ausentes antes de aceitar requisições. O arquivo `database.sqlite` fica na pasta da aplicação, independente do diretório de execução. A sincronização não apaga registros nem altera tabelas existentes.
 
-Produto contém nome e preço obrigatórios, preço não negativo e quantidade inteira não negativa com padrão zero. Sequelize também cria id, createdAt e updatedAt. Ainda não há interface para cadastrar produtos.
+Produto contém nome e preço obrigatórios, preço não negativo e quantidade inteira não negativa com padrão zero. Sequelize também cria id, createdAt e updatedAt. Acesse `/produtos` para gerenciar os registros. Os formulários exigem quantidade preenchida e preço com até duas casas decimais.
+
+## Rotas e fluxo MVC
+
+| Método | URL | Ação |
+| --- | --- | --- |
+| GET | `/produtos` | Listar |
+| GET | `/produtos/novo` | Formulário de cadastro |
+| POST | `/produtos` | Cadastrar |
+| GET | `/produtos/:id/editar` | Formulário de edição |
+| POST | `/produtos/:id` | Atualizar |
+| POST | `/produtos/:id/deletar` | Excluir |
+
+O formulário envia os dados às funções de controller em `routes/produtos.js`. Elas validam nome, preço e quantidade, acessam o model Produto pelo Sequelize e persistem no SQLite. A listagem consulta o model e renderiza os registros com EJS. Envios válidos redirecionam para a listagem; dados inválidos retornam o formulário com mensagens e HTTP 422. Produtos inexistentes retornam 404, e falhas inesperadas de banco retornam 500.
 
 `DATABASE_STORAGE` permite indicar outro arquivo SQLite ou `:memory:` para validações isoladas. O banco local não é versionado. Se a porta 3000 estiver ocupada, no PowerShell execute `$env:PORT='3001'` antes de `npm.cmd start`.

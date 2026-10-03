@@ -1,0 +1,14 @@
+<%# Renderiza a edição do produto usando seu ID no destino do formulário. %>
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Editar produto</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <h1>Editar produto</h1>
+    <%- include('_form', { produto, erros, acao: '/produtos/' + produto.id, botao: 'Salvar alterações' }) %>
+  </body>
+</html>
