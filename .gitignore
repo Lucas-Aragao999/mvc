@@ -6,3 +6,8 @@ npm-debug.log*
 .env.*
 !.env.example
 tmp/
+# Mantém dados SQLite e seus arquivos auxiliares fora do versionamento.
+*.sqlite
+*.sqlite-journal
+*.sqlite-shm
+*.sqlite-wal

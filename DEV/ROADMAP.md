@@ -18,11 +18,11 @@ Construir uma aplicação web com **Node.js, Express, EJS, Sequelize e SQLite**,
 
 ## 2. Criar o Model e a persistência
 
-- [ ] Criar `models/index.js` com a conexão SQLite em `database.sqlite`.
-- [ ] Definir o Model `Produto`: nome obrigatório, preço obrigatório e quantidade inteira com padrão zero.
-- [ ] Integrar a sincronização do Sequelize à inicialização da aplicação.
-- [ ] Garantir que o banco esteja pronto antes de atender às requisições e tratar falhas de inicialização.
-- [ ] Verificar se o arquivo SQLite e a tabela de produtos foram criados.
+- [x] Criar `models/index.js` com a conexão SQLite em `database.sqlite`.
+- [x] Definir o Model `Produto`: nome obrigatório, preço obrigatório e quantidade inteira com padrão zero.
+- [x] Integrar a sincronização do Sequelize à inicialização da aplicação.
+- [x] Garantir que o banco esteja pronto antes de atender às requisições e tratar falhas de inicialização.
+- [x] Verificar se o arquivo SQLite e a tabela de produtos foram criados.
 
 **Concluído quando:** o banco estiver acessível e os registros puderem ser armazenados e recuperados.
 
