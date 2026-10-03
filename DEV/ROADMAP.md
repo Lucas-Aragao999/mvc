@@ -8,11 +8,11 @@ Construir uma aplicação web com **Node.js, Express, EJS, Sequelize e SQLite**,
 
 ## 1. Preparar o projeto
 
-- [ ] Criar a aplicação: `npx express-generator --view=ejs cadastro-produtos`.
-- [ ] Entrar na pasta e executar `npm install`.
-- [ ] Instalar o banco e ORM: `npm install sequelize sqlite3`.
-- [ ] Executar `npm start` e abrir `http://localhost:3000`.
-- [ ] Iniciar o versionamento e configurar `.gitignore` para excluir `node_modules` e arquivos temporários.
+- [x] Criar a aplicação: `npx express-generator --view=ejs cadastro-produtos`.
+- [x] Entrar na pasta e executar `npm install`.
+- [x] Instalar o banco e ORM: `npm install sequelize sqlite3`.
+- [x] Executar `npm start` e abrir a página inicial (validado em `http://localhost:3001`, pois a porta 3000 estava ocupada).
+- [x] Iniciar o versionamento e configurar `.gitignore` para excluir `node_modules` e arquivos temporários (repositório Git já existente).
 
 **Concluído quando:** a página inicial do Express abrir sem erros.
 

@@ -1,0 +1,90 @@
+#!/usr/bin/env node
+
+/**
+ * Inicializa o servidor HTTP da aplicação e trata falhas de escuta.
+ */
+
+var app = require('../app');
+var debug = require('debug')('cadastro-produtos:server');
+var http = require('http');
+
+/**
+ * Obtém a porta configurada para permitir executar o servidor localmente.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Cria o servidor HTTP que encaminha as requisições ao Express.
+ */
+
+var server = http.createServer(app);
+
+/**
+ * Inicia a escuta e associa os eventos de diagnóstico do servidor.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Converte a configuração em porta ou pipe para fornecer um endereço válido ao servidor.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // Preserva o nome quando o endereço representa um pipe.
+    return val;
+  }
+
+  if (port >= 0) {
+    // Aceita portas não negativas.
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Trata falhas de escuta com mensagens claras e encerra a inicialização quando necessário.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // Identifica falta de permissão e porta já ocupada.
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Registra o endereço de escuta pelo logger para apoiar o diagnóstico da inicialização.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
