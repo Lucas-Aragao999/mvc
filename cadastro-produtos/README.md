@@ -63,3 +63,27 @@ A página identifica a categoria selecionada, mostra uma mensagem quando ela est
 Use o campo “Pesquisar por nome” na listagem. O formulário GET envia `busca`, por exemplo `/produtos?busca=mouse`, e o Sequelize consulta nomes com `Op.like` e o padrão `%mouse%`. O SQLite interpreta `%` e `_` digitados como curingas LIKE.
 
 O termo aparece na página e no campo de pesquisa. Quando não há correspondências, uma mensagem informa isso. Um termo vazio ou o link “Limpar pesquisa” restaura a listagem. Dentro de uma categoria, a busca combina o nome com categoriaId; limpar a pesquisa mantém a categoria selecionada. “Todos os produtos” remove ambos os filtros.
+
+## Roteiro de demonstração
+
+1. Inicie a aplicação e abra `/categorias`. Cadastre “Informática”, “Escritório” e “Vazia”.
+2. Em `/produtos/novo`, cadastre os produtos abaixo e selecione a categoria correspondente.
+
+| Nome | Preço | Quantidade | Categoria |
+| --- | --- | --- | --- |
+| Mouse USB | 25,90 | 5 | Informática |
+| Teclado USB | 79,90 | 3 | Informática |
+| Monitor | 899,90 | 2 | Informática |
+| Caderno | 15,50 | 10 | Escritório |
+| Caneta | 3,50 | 20 | Escritório |
+
+3. Confira os cinco registros na listagem, edite o preço de Mouse USB e troque sua categoria para Escritório. Exclua Caneta.
+4. Abra cada filtro de categoria. Mouse USB deve aparecer em Escritório; Vazia deve mostrar a mensagem sem produtos. Clique em “Todos os produtos”.
+5. Pesquise `ouse`, depois um nome inexistente, e limpe a pesquisa. Repita a busca dentro de uma categoria.
+6. Encerre o servidor com Ctrl+C e execute `npm start` novamente. Confira que a edição e a exclusão continuam aplicadas.
+
+Formulários exigem nome, preço não negativo com até duas casas decimais, quantidade inteira não negativa e categoria existente. Os testes automatizados enviam dados inválidos diretamente ao servidor para conferir a validação independente do navegador.
+
+## Instalação reproduzível
+
+Em uma cópia limpa, `npm ci` instala as versões do `package-lock.json`. Depois, execute `npm run test:unit` e `npm start`. Não copie node_modules nem o banco de outro ambiente. Para a entrega acadêmica, o responsável ainda deve informar seu nome e RM.

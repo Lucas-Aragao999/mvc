@@ -113,18 +113,18 @@ Construir uma aplicação web com **Node.js, Express, EJS, Sequelize e SQLite**,
 
 ## 8. Documentar e entregar no GitHub
 
-- [ ] Criar `README.md` com o nome **Cadastro de Produtos — MVC**.
+- [x] Criar `README.md` com o nome **Cadastro de Produtos — MVC**.
 - [ ] Informar nome do integrante e RM.
-- [ ] Explicar instalação e execução com `npm install` e `npm start`.
-- [ ] Informar a URL inicial da aplicação.
-- [ ] Listar somente as funcionalidades realmente implementadas.
-- [ ] Explicar como o relacionamento entre Produto e Categoria foi feito.
-- [ ] Explicar a rota e a consulta de produtos por categoria.
-- [ ] Explicar a pesquisa por nome, caso implementada.
-- [ ] Documentar como o banco é criado e como preparar categorias e produtos para testar.
+- [x] Explicar instalação e execução com `npm install` e `npm start`.
+- [x] Informar a URL inicial da aplicação.
+- [x] Listar somente as funcionalidades realmente implementadas.
+- [x] Explicar como o relacionamento entre Produto e Categoria foi feito.
+- [x] Explicar a rota e a consulta de produtos por categoria.
+- [x] Explicar a pesquisa por nome, caso implementada.
+- [x] Documentar como o banco é criado e como preparar categorias e produtos para testar.
 - [ ] Enviar código-fonte, configurações, `package.json`, arquivo de lock, Models, rotas e Views ao GitHub.
-- [ ] Conferir a instalação a partir de uma cópia limpa do repositório.
-- [ ] Conferir o link e a acessibilidade do repositório para a entrega.
+- [x] Conferir a instalação a partir de uma cópia limpa do repositório.
+- [x] Conferir o link e a acessibilidade do repositório para a entrega (API pública confirmou acesso; publicação das alterações finais permanece com o programador).
 
 **Concluído quando:** outra pessoa conseguir instalar, executar e testar os requisitos seguindo apenas o README.
 
