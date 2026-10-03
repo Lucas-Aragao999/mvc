@@ -8,10 +8,19 @@
     <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body>
-    <h1>Produtos</h1>
+    <h1><%= categoriaSelecionada ? 'Produtos da categoria: ' + categoriaSelecionada.nome : 'Produtos' %></h1>
     <nav><a href="/">Início</a> | <a href="/produtos/novo">Cadastrar produto</a> | <a href="/categorias">Categorias</a></nav>
+    <nav aria-label="Filtrar produtos por categoria">
+      <h2>Filtrar por categoria</h2>
+      <a href="/produtos">Todos os produtos</a>
+      <ul>
+        <% for (const categoria of categorias) { %>
+          <li><a href="/produtos/categoria/<%= categoria.id %>"<% if (categoriaSelecionada && categoriaSelecionada.id === categoria.id) { %> aria-current="page"<% } %>><%= categoria.nome %></a></li>
+        <% } %>
+      </ul>
+    </nav>
     <% if (!produtos.length) { %>
-      <p>Nenhum produto cadastrado.</p>
+      <p><%= categoriaSelecionada ? 'Nenhum produto nesta categoria.' : 'Nenhum produto cadastrado.' %></p>
     <% } else { %>
       <table>
         <caption>Produtos cadastrados</caption>

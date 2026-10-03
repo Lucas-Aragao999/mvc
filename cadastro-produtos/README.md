@@ -1,7 +1,7 @@
 <!-- Explica a execução da aplicação durante a preparação do projeto. -->
 # Cadastro de Produtos — MVC
 
-Aplicação MVC com Express, EJS, Sequelize e SQLite. Inclui CRUD de produtos, cadastro/listagem de categorias e associação de produtos às categorias. O filtro por categoria é a próxima etapa de `../DEV/ROADMAP.md`.
+Aplicação MVC com Express, EJS, Sequelize e SQLite. Inclui CRUD de produtos, cadastro/listagem de categorias, associação de produtos às categorias e filtro por categoria.
 
 ## Execução
 
@@ -33,6 +33,7 @@ Produto contém nome e preço obrigatórios, preço não negativo e quantidade i
 | Método | URL | Ação |
 | --- | --- | --- |
 | GET | `/produtos` | Listar |
+| GET | `/produtos/categoria/:categoriaId` | Listar produtos da categoria |
 | GET | `/produtos/novo` | Formulário de cadastro |
 | POST | `/produtos` | Cadastrar |
 | GET | `/produtos/:id/editar` | Formulário de edição |
@@ -50,3 +51,9 @@ O formulário envia os dados às funções de controller em `routes/produtos.js`
 Cadastre uma categoria em `/categorias` antes de criar produtos. Categoria contém id, nome obrigatório e os timestamps do Sequelize. Uma Categoria possui vários Produtos (`hasMany`), e cada Produto pertence a uma Categoria (`belongsTo`), usando `categoriaId` como chave estrangeira. A listagem carrega a associação e exibe seu nome; a edição permite trocar a categoria.
 
 Novos cadastros e edições exigem uma categoria existente. Conforme decisão do programador, a inicialização associa produtos antigos sem vínculo à categoria “Sem categoria”, criando-a somente se necessária. A atualização pode ser executada novamente sem duplicar essa categoria. Edição e exclusão de categorias não fazem parte do escopo.
+
+## Produtos por categoria
+
+Na listagem de produtos, clique no nome de uma categoria em “Filtrar por categoria”. Também é possível abrir o filtro pela lista em `/categorias`. A rota GET `/produtos/categoria/:categoriaId` verifica se a categoria existe e consulta `Produto.findAll` com `where: { categoriaId }`, carregando o relacionamento Categoria e reutilizando a view de listagem.
+
+A página identifica a categoria selecionada, mostra uma mensagem quando ela está vazia e oferece “Todos os produtos” para remover o filtro. Categorias inexistentes ou IDs inválidos retornam HTTP 404. Editar a categoria de um produto atualiza os resultados dos filtros.

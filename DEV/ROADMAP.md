@@ -74,13 +74,13 @@ Construir uma aplicação web com **Node.js, Express, EJS, Sequelize e SQLite**,
 
 **Pré-requisito:** categorias e associação funcionando.
 
-- [ ] Definir uma rota GET, por exemplo `/produtos/categoria/:categoriaId`.
-- [ ] Disponibilizar links ou um seletor para escolher a categoria.
-- [ ] Consultar os produtos no banco com `findAll` e uma condição pela chave estrangeira.
-- [ ] Mostrar a categoria selecionada e somente os produtos vinculados a ela.
-- [ ] Reutilizar a View de listagem se ela atender à necessidade.
-- [ ] Mostrar uma mensagem quando a categoria estiver vazia e tratar categoria inexistente.
-- [ ] Disponibilizar uma opção para voltar à listagem completa.
+- [x] Definir uma rota GET, por exemplo `/produtos/categoria/:categoriaId`.
+- [x] Disponibilizar links ou um seletor para escolher a categoria.
+- [x] Consultar os produtos no banco com `findAll` e uma condição pela chave estrangeira.
+- [x] Mostrar a categoria selecionada e somente os produtos vinculados a ela.
+- [x] Reutilizar a View de listagem se ela atender à necessidade.
+- [x] Mostrar uma mensagem quando a categoria estiver vazia e tratar categoria inexistente.
+- [x] Disponibilizar uma opção para voltar à listagem completa.
 
 **Concluído quando:** selecionar duas categorias diferentes retornar conjuntos corretos de produtos por meio de uma rota acessível na interface.
 

@@ -21,7 +21,7 @@
     </form>
     <h2>Categorias cadastradas</h2>
     <% if (!categorias.length) { %><p>Nenhuma categoria cadastrada.</p><% } else { %>
-      <ul><% for (const categoria of categorias) { %><li><%= categoria.nome %></li><% } %></ul>
+      <ul><% for (const categoria of categorias) { %><li><a href="/produtos/categoria/<%= categoria.id %>"><%= categoria.nome %></a></li><% } %></ul>
     <% } %>
   </body>
 </html>
