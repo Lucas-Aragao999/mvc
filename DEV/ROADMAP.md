@@ -88,11 +88,11 @@ Construir uma aplicação web com **Node.js, Express, EJS, Sequelize e SQLite**,
 
 **Pré-requisito:** os dois desafios obrigatórios concluídos.
 
-- [ ] Adicionar um formulário de pesquisa com método GET.
-- [ ] Receber o termo, por exemplo em `/produtos?busca=mouse`.
-- [ ] Consultar nomes que contenham o termo usando as condições de busca do Sequelize, como `LIKE`.
-- [ ] Mostrar os resultados e uma mensagem quando não houver correspondências.
-- [ ] Retornar à listagem completa quando a busca estiver vazia.
+- [x] Adicionar um formulário de pesquisa com método GET.
+- [x] Receber o termo, por exemplo em `/produtos?busca=mouse`.
+- [x] Consultar nomes que contenham o termo usando as condições de busca do Sequelize, como `LIKE`.
+- [x] Mostrar os resultados e uma mensagem quando não houver correspondências.
+- [x] Retornar à listagem completa quando a busca estiver vazia.
 
 **Concluído quando:** pesquisar parte do nome retornar os produtos correspondentes a partir do banco.
 

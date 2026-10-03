@@ -1,7 +1,7 @@
 <!-- Explica a execução da aplicação durante a preparação do projeto. -->
 # Cadastro de Produtos — MVC
 
-Aplicação MVC com Express, EJS, Sequelize e SQLite. Inclui CRUD de produtos, cadastro/listagem de categorias, associação de produtos às categorias e filtro por categoria.
+Aplicação MVC com Express, EJS, Sequelize e SQLite. Inclui CRUD de produtos, cadastro/listagem de categorias, associação de produtos às categorias, filtro por categoria e pesquisa por nome.
 
 ## Execução
 
@@ -57,3 +57,9 @@ Novos cadastros e edições exigem uma categoria existente. Conforme decisão do
 Na listagem de produtos, clique no nome de uma categoria em “Filtrar por categoria”. Também é possível abrir o filtro pela lista em `/categorias`. A rota GET `/produtos/categoria/:categoriaId` verifica se a categoria existe e consulta `Produto.findAll` com `where: { categoriaId }`, carregando o relacionamento Categoria e reutilizando a view de listagem.
 
 A página identifica a categoria selecionada, mostra uma mensagem quando ela está vazia e oferece “Todos os produtos” para remover o filtro. Categorias inexistentes ou IDs inválidos retornam HTTP 404. Editar a categoria de um produto atualiza os resultados dos filtros.
+
+## Pesquisa por nome
+
+Use o campo “Pesquisar por nome” na listagem. O formulário GET envia `busca`, por exemplo `/produtos?busca=mouse`, e o Sequelize consulta nomes com `Op.like` e o padrão `%mouse%`. O SQLite interpreta `%` e `_` digitados como curingas LIKE.
+
+O termo aparece na página e no campo de pesquisa. Quando não há correspondências, uma mensagem informa isso. Um termo vazio ou o link “Limpar pesquisa” restaura a listagem. Dentro de uma categoria, a busca combina o nome com categoriaId; limpar a pesquisa mantém a categoria selecionada. “Todos os produtos” remove ambos os filtros.

@@ -1,6 +1,7 @@
 // Implementa o CRUD MVC de produtos com validação dos formulários e acesso pelo Sequelize.
 const express = require('express');
 const createError = require('http-errors');
+const { Op } = require('sequelize');
 const { Produto, Categoria } = require('../models');
 const router = express.Router();
 
@@ -50,9 +51,11 @@ async function buscar(id) {
 
 // Lista os produtos em ordem de cadastro para permitir acessar edição e exclusão.
 router.get('/', executar(async function(req, res) {
-  const produtos = await Produto.findAll({ include: 'Categoria', order: [['id', 'ASC']] });
+  const busca = typeof req.query.busca === 'string' ? req.query.busca.trim() : '';
+  const where = busca ? { nome: { [Op.like]: `%${busca}%` } } : {};
+  const produtos = await Produto.findAll({ where, include: 'Categoria', order: [['id', 'ASC']] });
   const categorias = await Categoria.findAll({ order: [['nome', 'ASC']] });
-  res.render('produtos/index', { produtos, categorias, categoriaSelecionada: null });
+  res.render('produtos/index', { produtos, categorias, categoriaSelecionada: null, busca });
 }));
 
 // Valida a categoria e consulta somente seus produtos pela chave estrangeira, reutilizando a listagem.
@@ -63,9 +66,12 @@ router.get('/categoria/:categoriaId', executar(async function(req, res) {
   }
   const categoriaSelecionada = await Categoria.findByPk(id);
   if (!categoriaSelecionada) throw createError(404, 'Categoria não encontrada.');
-  const produtos = await Produto.findAll({ where: { categoriaId: categoriaSelecionada.id }, include: 'Categoria', order: [['id', 'ASC']] });
+  const busca = typeof req.query.busca === 'string' ? req.query.busca.trim() : '';
+  const where = { categoriaId: categoriaSelecionada.id };
+  if (busca) where.nome = { [Op.like]: `%${busca}%` };
+  const produtos = await Produto.findAll({ where, include: 'Categoria', order: [['id', 'ASC']] });
   const categorias = await Categoria.findAll({ order: [['nome', 'ASC']] });
-  res.render('produtos/index', { produtos, categorias, categoriaSelecionada });
+  res.render('produtos/index', { produtos, categorias, categoriaSelecionada, busca });
 }));
 
 // Abre o formulário com quantidade zero para iniciar um cadastro.

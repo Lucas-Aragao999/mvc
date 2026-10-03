@@ -19,8 +19,15 @@
         <% } %>
       </ul>
     </nav>
+    <form method="get" action="<%= categoriaSelecionada ? '/produtos/categoria/' + categoriaSelecionada.id : '/produtos' %>">
+      <label for="busca">Pesquisar por nome</label>
+      <input id="busca" name="busca" type="search" value="<%= busca %>" />
+      <button type="submit">Pesquisar</button>
+      <a href="<%= categoriaSelecionada ? '/produtos/categoria/' + categoriaSelecionada.id : '/produtos' %>">Limpar pesquisa</a>
+    </form>
+    <% if (busca) { %><p>Resultados para: <%= busca %></p><% } %>
     <% if (!produtos.length) { %>
-      <p><%= categoriaSelecionada ? 'Nenhum produto nesta categoria.' : 'Nenhum produto cadastrado.' %></p>
+      <p><%= busca ? 'Nenhum produto encontrado para esta pesquisa.' : categoriaSelecionada ? 'Nenhum produto nesta categoria.' : 'Nenhum produto cadastrado.' %></p>
     <% } else { %>
       <table>
         <caption>Produtos cadastrados</caption>
